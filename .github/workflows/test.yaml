@@ -19,7 +19,7 @@ jobs:
             arch: aarch64
     runs-on: ${{ matrix.runner }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Build production image natively
         run: docker build --platform '${{ matrix.platform }}' --build-arg BUILD_ARCH='${{ matrix.arch }}' -t zotero-webdav:test zotero_webdav
       - name: WebDAV and security integration tests
