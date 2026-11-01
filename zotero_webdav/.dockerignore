@@ -1,0 +1,4 @@
+*
+!Dockerfile
+!lighttpd.conf
+!start.py

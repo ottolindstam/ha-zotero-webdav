@@ -1,0 +1,32 @@
+name: Zotero WebDAV
+version: 0.1.0
+slug: zotero_webdav
+description: Private authenticated WebDAV storage for Zotero attachments
+url: https://github.com/ottolindstam/ha-zotero-webdav
+arch:
+  - aarch64
+  - amd64
+startup: application
+boot: manual
+init: true
+stage: experimental
+ports:
+  8080/tcp: null
+ports_description:
+  8080/tcp: HTTP backend — enable only behind an encrypted network or TLS proxy
+hassio_api: false
+homeassistant_api: false
+auth_api: false
+docker_api: false
+host_network: false
+apparmor: true
+tmpfs: true
+backup: cold
+options:
+  username: zotero
+  password: ""
+  encrypted_transport_confirmed: false
+schema:
+  username: str
+  password: password
+  encrypted_transport_confirmed: bool

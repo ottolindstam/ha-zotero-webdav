@@ -1,0 +1,26 @@
+name: Build and test
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  integration:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-24.04
+            platform: linux/amd64
+            arch: amd64
+          - runner: ubuntu-24.04-arm
+            platform: linux/arm64
+            arch: aarch64
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build production image natively
+        run: docker build --platform '${{ matrix.platform }}' --build-arg BUILD_ARCH='${{ matrix.arch }}' -t zotero-webdav:test zotero_webdav
+      - name: WebDAV and security integration tests
+        run: python3 -m unittest discover -s tests -v
